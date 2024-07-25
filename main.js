@@ -1,24 +1,32 @@
 // main.js
-
+require('electron-reload')(__dirname);
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain, Menu } = require('electron')
 const path = require('node:path')
 
+
 const createWindow = () => {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 800,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            contextIsolation: true,
+            enableRemoteModule: false,
+            nodeIntegration: false, // 确保为false，使用preload进行模块加载
         }
     })
 
     // 加载 index.html
-    mainWindow.loadFile('index.html')
+    mainWindow.loadURL('file://' + __dirname + '/index.html')
+
+    // 设置icon
+    mainWindow.setIcon(path.join(__dirname, 'logo.png'))
 
     // 打开开发工具
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
+    
 }
 
 // 这段程序将会在 Electron 结束初始化

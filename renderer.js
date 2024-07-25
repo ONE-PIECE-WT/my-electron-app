@@ -1,4 +1,6 @@
+
 document.addEventListener('DOMContentLoaded', () => {
+    
     const fileTree = document.getElementById('file-tree');
     const resizer = document.getElementById('resizer');
     const content = document.getElementById('content');
